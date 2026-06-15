@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "E:/DeckLab-2.0/build/Desktop_Qt_6_8_3_MSVC2022_64bit-Debug/CMakeFiles/DeckLab.dir/embed.manifest"

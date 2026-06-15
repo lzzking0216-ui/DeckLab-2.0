@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command ':*)",
+      "Bash(powershell -Command \"Get-ChildItem 'C:\\\\Qt' -ErrorAction SilentlyContinue | Select-Object Name\")",
+      "Bash(cmd /c \"call \\\\\"C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Auxiliary\\\\Build\\\\vcvars64.bat\\\\\" && cd /d \\\\\"E:\\\\DeckLab-2.0\\\\build\\\\Desktop_Qt_6_8_3_MSVC2022_64bit-Debug\\\\\" && \\\\\"E:\\\\QT_software\\\\QT\\\\Tools\\\\QtCreator\\\\bin\\\\jom\\\\jom.exe\\\\\" /nologo 2>&1\")",
+      "Bash(cmd /c \"E:\\\\DeckLab-2.0\\\\build_check.bat\")",
+      "Bash(\"E:\\\\QT_software\\\\QT\\\\Tools\\\\CMake_64\\\\bin\\\\cmake.exe\" --version)",
+      "Bash(\"E:\\\\QT_software\\\\QT\\\\Tools\\\\CMake_64\\\\bin\\\\cmake.exe\" --build \"E:\\\\DeckLab-2.0\\\\build\\\\Desktop_Qt_6_8_3_MSVC2022_64bit-Debug\")",
+      "Bash(set PATH=E:\\\\QT_software\\\\QT\\\\Tools\\\\QtCreator\\\\bin\\\\jom)",
+      "Bash(%PATH%)",
+      "Bash(cmd /c \"set PATH=E:\\\\QT_software\\\\QT\\\\Tools\\\\QtCreator\\\\bin\\\\jom;%PATH% && \\\\\"E:\\\\QT_software\\\\QT\\\\Tools\\\\CMake_64\\\\bin\\\\cmake.exe\\\\\" --build \\\\\"E:\\\\DeckLab-2.0\\\\build\\\\Desktop_Qt_6_8_3_MSVC2022_64bit-Debug\\\\\"\")",
+      "Bash(cmd.exe /c \"echo hello > E:\\\\DeckLab-2.0\\\\test_out.txt\")",
+      "Bash(powershell -Command \"Get-Content 'E:\\\\DeckLab-2.0\\\\test_out.txt' -ErrorAction SilentlyContinue\")",
+      "Bash('\"$vsScript')",
+      "Bash('\"$tempBat')",
+      "Bash('\"$logFile')",
+      "Bash(powershell.exe -NonInteractive -Command ':*)",
+      "Bash(powershell.exe -NonInteractive -Command \"Get-Content 'E:\\\\DeckLab-2.0\\\\_build_log.txt' | Select-String -Pattern 'error|warning|error C' | Select-Object -Last 50\")",
+      "Bash(powershell.exe -NonInteractive -ExecutionPolicy Bypass -File \"E:\\\\DeckLab-2.0\\\\_build.ps1\")",
+      "Bash(powershell.exe -NonInteractive -Command \"Get-Content 'E:\\\\DeckLab-2.0\\\\_build_log.txt' | Select-String 'error C|warning C|Built target|Build FAILED|Build succeeded|Error 2|EXITCODE|finished' | Select-Object -Last 30\")",
+      "Bash(powershell.exe -NonInteractive -Command \"Remove-Item 'E:\\\\DeckLab-2.0\\\\_build.ps1','E:\\\\DeckLab-2.0\\\\_build_log.txt','E:\\\\DeckLab-2.0\\\\_build_tmp.bat','E:\\\\DeckLab-2.0\\\\build_check.bat' -ErrorAction SilentlyContinue; Write-Host 'cleaned'\")",
+      "Bash(xargs grep *)"
+    ]
+  }
+}

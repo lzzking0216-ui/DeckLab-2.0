@@ -1,0 +1,64 @@
+{
+    "configurations": [
+        {
+            "name": "Qt6 MinGW (Win64)",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/**",
+                "E:/QT_software/QT/6.8.3/mingw_64/include",
+                "E:/QT_software/QT/6.8.3/mingw_64/include/QtCore",
+                "E:/QT_software/QT/6.8.3/mingw_64/include/QtGui",
+                "E:/QT_software/QT/6.8.3/mingw_64/include/QtWidgets",
+                "E:/QT_software/QT/6.8.3/mingw_64/include/QtNetwork",
+                "E:/QT_software/QT/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include",
+                "E:/QT_software/QT/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++",
+                "E:/QT_software/QT/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32",
+                "E:/QT_software/QT/Tools/mingw1310_64/x86_64-w64-mingw32/include",
+                "E:/QT_software/QT/Tools/mingw1310_64/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "WIN32",
+                "WIN64",
+                "QT_CORE_LIB",
+                "QT_GUI_LIB",
+                "QT_WIDGETS_LIB",
+                "QT_NETWORK_LIB"
+            ],
+            "compilerPath": "E:/QT_software/QT/Tools/mingw1310_64/bin/g++.exe",
+            "cppStandard": "c++17",
+            "cStandard": "c17",
+            "intelliSenseMode": "windows-gcc-x64"
+        },
+        {
+            "name": "Qt6 MSVC 2022 (Win64)",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/**",
+                "E:/QT_software/QT/6.8.3/msvc2022_64/include",
+                "E:/QT_software/QT/6.8.3/msvc2022_64/include/QtCore",
+                "E:/QT_software/QT/6.8.3/msvc2022_64/include/QtGui",
+                "E:/QT_software/QT/6.8.3/msvc2022_64/include/QtWidgets",
+                "E:/QT_software/QT/6.8.3/msvc2022_64/include/QtNetwork"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "WIN32",
+                "WIN64",
+                "QT_CORE_LIB",
+                "QT_GUI_LIB",
+                "QT_WIDGETS_LIB",
+                "QT_NETWORK_LIB"
+            ],
+            "compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe",
+            "cppStandard": "c++17",
+            "cStandard": "c17",
+            "intelliSenseMode": "windows-msvc-x64"
+        }
+    ],
+    "version": 4
+}
