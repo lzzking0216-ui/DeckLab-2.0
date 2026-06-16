@@ -783,6 +783,7 @@ E:/DeckLab-2.0/mainwindow.h
  mdp:E:/QT_software/QT/6.8.3/msvc2022_64/include/QtWidgets/qtwidgetsexports.h
  mdp:E:/QT_software/QT/6.8.3/msvc2022_64/include/QtWidgets/qtwidgetsglobal.h
  mdp:E:/QT_software/QT/6.8.3/msvc2022_64/include/QtWidgets/qwidget.h
+E:/DeckLab-2.0/sensor/SensorData.h
 E:/DeckLab-2.0/platform/UdpPlatformClient.h
  mmc:Q_OBJECT
  mdp:E:/DeckLab-2.0/platform/PlatformData.h
@@ -1092,7 +1093,6 @@ E:/DeckLab-2.0/motor/MotorPanel.h
  mdp:E:/QT_software/QT/6.8.3/msvc2022_64/include/QtWidgets/qtwidgetsexports.h
  mdp:E:/QT_software/QT/6.8.3/msvc2022_64/include/QtWidgets/qtwidgetsglobal.h
  mdp:E:/QT_software/QT/6.8.3/msvc2022_64/include/QtWidgets/qwidget.h
-E:/DeckLab-2.0/sensor/SensorData.h
 E:/DeckLab-2.0/platform/PlatformData.h
 E:/DeckLab-2.0/platform/PlatformWorker.h
  mmc:Q_OBJECT

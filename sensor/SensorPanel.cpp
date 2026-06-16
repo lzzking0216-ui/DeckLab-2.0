@@ -4,14 +4,14 @@
 #include <QGroupBox>
 #include <QFrame>
 
-// 海军风格颜色（与主窗口一致）
+// 简约白色主题
 static const char* kGroupStyle =
     "QGroupBox {"
-    "  border: 1px solid #0B5EA8;"
+    "  border: 1px solid #E5E7EB;"
     "  border-radius: 6px;"
     "  margin-top: 1.4em;"
-    "  background-color: #041830;"
-    "  color: #0099CC;"
+    "  background-color: #F9FAFB;"
+    "  color: #374151;"
     "  font-weight: bold;"
     "  font-size: 11pt;"
     "}"
@@ -44,7 +44,7 @@ void SensorPanel::setupUi()
     auto* headerRow = new QHBoxLayout;
     auto mkHeader = [&](const QString& text, int stretch) -> QLabel* {
         auto* lbl = new QLabel(text, this);
-        lbl->setStyleSheet("color: #5B9AC4; font-size: 9pt;");
+        lbl->setStyleSheet("color: #6B7280; font-size: 9pt;");
         lbl->setAlignment(Qt::AlignCenter);
         headerRow->addWidget(lbl, stretch);
         return lbl;
@@ -58,7 +58,7 @@ void SensorPanel::setupUi()
     auto addSep = [&]() {
         auto* f = new QFrame;
         f->setFrameShape(QFrame::HLine);
-        f->setStyleSheet("color: #0B5EA8;");
+        f->setStyleSheet("color: #E5E7EB;");
         vbox->addWidget(f);
     };
     addSep();
@@ -79,24 +79,24 @@ void SensorPanel::setupUi()
         auto& ch = m_rows[i];
 
         ch.nameLabel = new QLabel(QString::fromUtf8(defaultNames[i]), this);
-        ch.nameLabel->setStyleSheet("color: #A8D8F0; font-size: 10pt;");
+        ch.nameLabel->setStyleSheet("color: #374151; font-size: 10pt;");
         ch.nameLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
         ch.valueLabel = new QLabel("---", this);
         ch.valueLabel->setStyleSheet(
-            "color: #A8D8F0;"
+            "color: #111827;"
             "font-family: Consolas, monospace;"
             "font-size: 13pt;"
             "font-weight: bold;"
-            "background: #020D1A;"
-            "border: 1px solid #0B5EA8;"
+            "background: #FFFFFF;"
+            "border: 1px solid #E5E7EB;"
             "border-radius: 3px;"
             "padding: 2px 6px;");
         ch.valueLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         ch.valueLabel->setMinimumWidth(80);
 
         ch.unitLabel = new QLabel(QString::fromUtf8(defaultUnits[i]), this);
-        ch.unitLabel->setStyleSheet("color: #5B9AC4; font-size: 9pt;");
+        ch.unitLabel->setStyleSheet("color: #6B7280; font-size: 9pt;");
         ch.unitLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
         ch.unitLabel->setFixedWidth(36);
 

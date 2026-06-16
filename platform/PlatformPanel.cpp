@@ -6,54 +6,54 @@
 #include <QFrame>
 
 // -----------------------------------------------------------------------
-// 样式常量（与主窗口海军配色一致）
+// 简约白色主题
 // -----------------------------------------------------------------------
 static const char* kOuterGroup =
     "QGroupBox {"
-    "  border: 1px solid #0B5EA8; border-radius: 6px;"
-    "  background-color: #020D1A; color: #0099CC;"
+    "  border: 1px solid #E5E7EB; border-radius: 6px;"
+    "  background-color: #FFFFFF; color: #374151;"
     "  font-weight: bold; font-size: 12pt; margin-top: 1.2em;"
     "}"
     "QGroupBox::title { subcontrol-origin:margin; padding:0 8px; }";
 
 static const char* kInnerGroup =
     "QGroupBox {"
-    "  border: 1px solid #0B3060; border-radius: 5px;"
-    "  background-color: #041830; color: #5B9AC4;"
+    "  border: 1px solid #E5E7EB; border-radius: 5px;"
+    "  background-color: #F9FAFB; color: #6B7280;"
     "  font-weight: bold; font-size: 9pt; margin-top: 1.2em;"
     "}"
     "QGroupBox::title { subcontrol-origin:margin; padding:0 6px; }";
 
-static const char* kCapStyle   = "color:#5B9AC4; font-size:8pt;";
-static const char* kValStyle   = "color:#A8D8F0; font-family:Consolas,monospace; font-size:10pt; font-weight:bold;";
-static const char* kUnitStyle  = "color:#5B9AC4; font-size:8pt;";
-static const char* kPillNorm   = "background:#052040;color:#5B9AC4;border-radius:3px;padding:2px 8px;font-size:8pt;";
-static const char* kPillOn     = "background:#007A52;color:#FFFFFF;border-radius:3px;padding:2px 8px;font-size:8pt;font-weight:bold;";
-static const char* kPillFault  = "background:#CC2222;color:#FFFFFF;border-radius:3px;padding:2px 8px;font-size:8pt;font-weight:bold;";
-static const char* kPillMode   = "background:#063060;color:#5BC4D8;border-radius:3px;padding:2px 8px;font-size:8pt;";
+static const char* kCapStyle   = "color:#6B7280; font-size:8pt;";
+static const char* kValStyle   = "color:#111827; font-family:Consolas,monospace; font-size:10pt; font-weight:bold;";
+static const char* kUnitStyle  = "color:#6B7280; font-size:8pt;";
+static const char* kPillNorm   = "background:#F3F4F6;color:#6B7280;border-radius:3px;padding:2px 8px;font-size:8pt;";
+static const char* kPillOn     = "background:#D1FAE5;color:#065F46;border-radius:3px;padding:2px 8px;font-size:8pt;font-weight:bold;";
+static const char* kPillFault  = "background:#FEE2E2;color:#991B1B;border-radius:3px;padding:2px 8px;font-size:8pt;font-weight:bold;";
+static const char* kPillMode   = "background:#DBEAFE;color:#1D4ED8;border-radius:3px;padding:2px 8px;font-size:8pt;";
 static const char* kSpinStyle  =
-    "background:#020D1A;color:#A8D8F0;border:1px solid #0B5EA8;"
+    "background:#FFFFFF;color:#374151;border:1px solid #D1D5DB;"
     "border-radius:3px;padding:1px 3px;font-family:Consolas;font-size:9pt;";
 static const char* kBtnGreen =
-    "QPushButton{background:#007A52;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;}"
-    "QPushButton:pressed{background:#004D34;}"
-    "QPushButton:disabled{background:#041830;color:#2A5A7A;}";
+    "QPushButton{background:#059669;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;}"
+    "QPushButton:pressed{background:#047857;}"
+    "QPushButton:disabled{background:#F3F4F6;color:#9CA3AF;}";
 static const char* kBtnRed =
-    "QPushButton{background:#7A2800;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;}"
-    "QPushButton:pressed{background:#4D1A00;}"
-    "QPushButton:disabled{background:#041830;color:#2A5A7A;}";
+    "QPushButton{background:#EF4444;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;}"
+    "QPushButton:pressed{background:#DC2626;}"
+    "QPushButton:disabled{background:#F3F4F6;color:#9CA3AF;}";
 static const char* kBtnBlue =
-    "QPushButton{background:#0077B6;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;}"
-    "QPushButton:pressed{background:#005A8A;}"
-    "QPushButton:disabled{background:#041830;color:#2A5A7A;}";
+    "QPushButton{background:#2563EB;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;}"
+    "QPushButton:pressed{background:#1D4ED8;}"
+    "QPushButton:disabled{background:#F3F4F6;color:#9CA3AF;}";
 static const char* kBtnReset =
-    "QPushButton{background:#2E2E8A;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;}"
-    "QPushButton:pressed{background:#1C1C5A;}"
-    "QPushButton:disabled{background:#041830;color:#2A5A7A;}";
+    "QPushButton{background:#7C3AED;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;}"
+    "QPushButton:pressed{background:#6D28D9;}"
+    "QPushButton:disabled{background:#F3F4F6;color:#9CA3AF;}";
 static const char* kBtnStop =
-    "QPushButton{background:#8B0000;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;font-weight:bold;}"
-    "QPushButton:pressed{background:#5A0000;}"
-    "QPushButton:disabled{background:#041830;color:#2A5A7A;}";
+    "QPushButton{background:#DC2626;color:white;border-radius:3px;padding:3px 10px;font-size:8pt;font-weight:bold;}"
+    "QPushButton:pressed{background:#B91C1C;}"
+    "QPushButton:disabled{background:#F3F4F6;color:#9CA3AF;}";
 
 static const char* kPoseNames[6] = {"X", "Y", "Z", "RX", "RY", "RZ"};
 static const char* kPoseUnits[6] = {"mm","mm","mm","°","°","°"};
@@ -83,7 +83,7 @@ void PlatformPanel::setupUi()
     buildStatusSection(outerGroup, vbox);
     vbox->addWidget([&]() -> QFrame* {
         auto* f = new QFrame; f->setFrameShape(QFrame::HLine);
-        f->setStyleSheet("color:#0B3060;"); return f;
+        f->setStyleSheet("color:#E5E7EB;"); return f;
     }());
 
     // 中间两列：左=当前位姿，右=目标位姿
@@ -110,14 +110,14 @@ void PlatformPanel::setupUi()
 
     vbox->addWidget([&]() -> QFrame* {
         auto* f = new QFrame; f->setFrameShape(QFrame::HLine);
-        f->setStyleSheet("color:#0B3060;"); return f;
+        f->setStyleSheet("color:#E5E7EB;"); return f;
     }());
 
     buildControlSection(outerGroup, vbox);
 
     vbox->addWidget([&]() -> QFrame* {
         auto* f = new QFrame; f->setFrameShape(QFrame::HLine);
-        f->setStyleSheet("color:#0B3060;"); return f;
+        f->setStyleSheet("color:#E5E7EB;"); return f;
     }());
 
     buildChainSection(outerGroup, vbox);
@@ -205,13 +205,13 @@ void PlatformPanel::buildCurrentPoseSection(QWidget* parent, QVBoxLayout* vbox)
         row->setSpacing(4);
 
         d.label = new QLabel(QString::fromUtf8(kPoseNames[i]), parent);
-        d.label->setStyleSheet("color:#A8D8F0; font-size:9pt; font-weight:bold;");
+        d.label->setStyleSheet("color:#374151; font-size:9pt; font-weight:bold;");
         d.label->setFixedWidth(28);
 
         d.value = new QLabel("---", parent);
         d.value->setStyleSheet(
-            "color:#A8D8F0; font-family:Consolas,monospace; font-size:11pt; font-weight:bold;"
-            "background:#020D1A; border:1px solid #0B5EA8; border-radius:3px; padding:1px 5px;");
+            "color:#111827; font-family:Consolas,monospace; font-size:11pt; font-weight:bold;"
+            "background:#FFFFFF; border:1px solid #E5E7EB; border-radius:3px; padding:1px 5px;");
         d.value->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         d.value->setMinimumWidth(90);
 
@@ -241,11 +241,11 @@ void PlatformPanel::buildControlSection(QWidget* parent, QVBoxLayout* vbox)
 
     m_modeCombo = new QComboBox(parent);
     m_modeCombo->setStyleSheet(
-        "QComboBox { background:#020D1A; color:#A8D8F0; border:1px solid #0B5EA8;"
+        "QComboBox { background:#FFFFFF; color:#374151; border:1px solid #D1D5DB;"
         "  border-radius:3px; padding:2px 6px; font-size:9pt; }"
         "QComboBox::drop-down { border:none; width:18px; }"
-        "QComboBox QAbstractItemView { background:#020D1A; color:#A8D8F0;"
-        "  selection-background-color:#0B5EA8; }");
+        "QComboBox QAbstractItemView { background:#FFFFFF; color:#374151;"
+        "  selection-background-color:#2563EB; selection-color:#FFFFFF; }");
     m_modeCombo->setMinimumWidth(130);
     m_modeCombo->addItem("停止",       0);
     m_modeCombo->addItem("支链点动",   1);
@@ -293,7 +293,7 @@ void PlatformPanel::buildTargetPoseSection(QWidget* parent, QVBoxLayout* vbox)
         row->setSpacing(4);
 
         d.label = new QLabel(QString::fromUtf8(kPoseNames[i]), parent);
-        d.label->setStyleSheet("color:#A8D8F0; font-size:9pt; font-weight:bold;");
+        d.label->setStyleSheet("color:#374151; font-size:9pt; font-weight:bold;");
         d.label->setFixedWidth(28);
 
         d.spin = new QDoubleSpinBox(parent);
@@ -354,7 +354,7 @@ void PlatformPanel::buildChainSection(QWidget* parent, QVBoxLayout* vbox)
 
         m_chainLabels[i] = new QLabel("---", parent);
         m_chainLabels[i]->setStyleSheet(
-            "color:#5BC4D8; font-family:Consolas,monospace; font-size:9pt;");
+            "color:#374151; font-family:Consolas,monospace; font-size:9pt;");
         m_chainLabels[i]->setMinimumWidth(60);
         m_chainLabels[i]->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
         row->addWidget(m_chainLabels[i]);

@@ -9,23 +9,23 @@
 #include <QSplitter>
 
 // -----------------------------------------------------------------------
-// 海军配色
+// 简约白色主题
 // -----------------------------------------------------------------------
 static const char* kWindowBg =
-    "QMainWindow, QWidget#central { background-color: #0A1628; }"
-    "QStatusBar { background: #0D1F3C; color: #7FA8CC; border-top: 1px solid #1E4580; }";
+    "QMainWindow, QWidget#central { background-color: #FFFFFF; }"
+    "QStatusBar { background: #F9FAFB; color: #6B7280; border-top: 1px solid #E5E7EB; }";
 
 static const char* kConnGroupStyle =
     "QGroupBox {"
-    "  border: 1px solid #0B5EA8;"
+    "  border: 1px solid #E5E7EB;"
     "  border-radius: 6px;"
-    "  background-color: #031422;"
+    "  background-color: #F9FAFB;"
     "  margin-top: 0px;"
     "}"
-    "QLabel { color: #A8D8F0; }"
+    "QLabel { color: #374151; }"
     "QLineEdit, QSpinBox {"
-    "  background: #020D1A; color: #A8D8F0;"
-    "  border: 1px solid #0B5EA8; border-radius: 3px;"
+    "  background: #FFFFFF; color: #374151;"
+    "  border: 1px solid #D1D5DB; border-radius: 3px;"
     "  padding: 2px 4px; font-family: Consolas;"
     "}";
 
@@ -45,35 +45,35 @@ MainWindow::~MainWindow()
 }
 
 // -----------------------------------------------------------------------
-// 全局海军主题
+// 全局简约白色主题
 // -----------------------------------------------------------------------
 void MainWindow::applyNavyTheme()
 {
     qApp->setStyleSheet(
-        "QMainWindow, QWidget { background-color: #020D1A; color: #A8D8F0; }"
-        "QStatusBar { background: #031422; color: #5B9AC4;"
-        "  border-top: 1px solid #0B5EA8; }"
-        "QScrollBar:vertical { background: #020D1A; width: 8px; margin: 0; }"
-        "QScrollBar::handle:vertical { background: #0B5EA8; border-radius: 4px; min-height: 20px; }"
+        "QMainWindow, QWidget { background-color: #FFFFFF; color: #374151; }"
+        "QStatusBar { background: #F9FAFB; color: #6B7280;"
+        "  border-top: 1px solid #E5E7EB; }"
+        "QScrollBar:vertical { background: #F3F4F6; width: 8px; margin: 0; }"
+        "QScrollBar::handle:vertical { background: #D1D5DB; border-radius: 4px; min-height: 20px; }"
         "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }"
-        "QFrame[frameShape=\"4\"] { color: #0B3060; }"
+        "QFrame[frameShape=\"4\"] { color: #E5E7EB; }"
         "QSpinBox, QDoubleSpinBox, QLineEdit {"
-        "  background: #020D1A; color: #A8D8F0;"
-        "  border: 1px solid #34383c; border-radius: 3px; padding: 2px 4px;"
+        "  background: #FFFFFF; color: #374151;"
+        "  border: 1px solid #D1D5DB; border-radius: 3px; padding: 2px 4px;"
         "}"
         "QSpinBox::up-button, QSpinBox::down-button,"
         "QDoubleSpinBox::up-button, QDoubleSpinBox::down-button {"
-        "  background: #052040; border: none; width: 16px;"
+        "  background: #F3F4F6; border: none; width: 16px;"
         "}"
-        "QComboBox { background:#020D1A; color:#A8D8F0; border:1px solid #0B5EA8;"
+        "QComboBox { background:#FFFFFF; color:#374151; border:1px solid #D1D5DB;"
         "  border-radius:3px; padding:2px 4px; }"
-        "QComboBox QAbstractItemView { background:#020D1A; color:#A8D8F0;"
-        "  selection-background-color:#0B5EA8; }"
-        "QLabel { color: #A8D8F0; }"
-        "QToolTip { background: #041830; color: #A8D8F0; border: 1px solid #0B5EA8; }"
-        "QMessageBox { background: #041830; color: #A8D8F0; }"
+        "QComboBox QAbstractItemView { background:#FFFFFF; color:#374151;"
+        "  selection-background-color:#2563EB; selection-color:#FFFFFF; }"
+        "QLabel { color: #374151; }"
+        "QToolTip { background: #FFFFFF; color: #374151; border: 1px solid #D1D5DB; }"
+        "QMessageBox { background: #FFFFFF; color: #374151; }"
         "QMessageBox QPushButton {"
-        "  background: #0077B6; color: white; border-radius: 4px;"
+        "  background: #2563EB; color: white; border-radius: 4px;"
         "  padding: 5px 18px; font-size: 9pt;"
         "}"
     );
@@ -105,7 +105,7 @@ void MainWindow::setupUi()
 
     // —— Modbus TCP 段 ——
     auto* plcTag = new QLabel("汇川 AC702  Modbus TCP:", this);
-    plcTag->setStyleSheet("color:#2A7AAA; font-size:8pt; font-weight:bold;");
+    plcTag->setStyleSheet("color:#2563EB; font-size:8pt; font-weight:bold;");
     connRow->addWidget(plcTag);
 
     connRow->addWidget(new QLabel("IP:", this));
@@ -131,27 +131,27 @@ void MainWindow::setupUi()
     m_plcConnBtn = new QPushButton("连接 PLC", this);
     m_plcConnBtn->setFixedWidth(86);
     m_plcConnBtn->setStyleSheet(
-        "QPushButton { background:#1E6FB0; color:white; border-radius:4px;"
+        "QPushButton { background:#2563EB; color:white; border-radius:4px;"
         "  padding:4px 10px; font-size:9pt; font-weight:bold; }"
-        "QPushButton:pressed { background:#0E4F80; }"
-        "QPushButton:disabled { background:#1A2A3A; color:#4A6A8A; }");
+        "QPushButton:pressed { background:#1D4ED8; }"
+        "QPushButton:disabled { background:#E5E7EB; color:#9CA3AF; }");
     connect(m_plcConnBtn, &QPushButton::clicked, this, &MainWindow::onPlcConnectClicked);
     connRow->addWidget(m_plcConnBtn);
 
     m_plcStatusLbl = new QLabel("就绪", this);
-    m_plcStatusLbl->setStyleSheet("color: #7FA8CC; font-size: 8pt;");
+    m_plcStatusLbl->setStyleSheet("color: #6B7280; font-size: 8pt;");
     m_plcStatusLbl->setMinimumWidth(140);
     connRow->addWidget(m_plcStatusLbl);
 
     // 分隔竖线
     auto* sep = new QFrame(this);
     sep->setFrameShape(QFrame::VLine);
-    sep->setStyleSheet("color:#0B5EA8;");
+    sep->setStyleSheet("color:#E5E7EB;");
     connRow->addWidget(sep);
 
     // —— UDP 段 ——
     auto* udpTag = new QLabel("国辰正域  Stewart  UDP:", this);
-    udpTag->setStyleSheet("color:#2A8A5A; font-size:8pt; font-weight:bold;");
+    udpTag->setStyleSheet("color:#059669; font-size:8pt; font-weight:bold;");
     connRow->addWidget(udpTag);
 
     connRow->addWidget(new QLabel("IP:", this));
@@ -170,15 +170,15 @@ void MainWindow::setupUi()
     m_udpConnBtn = new QPushButton("连接平台", this);
     m_udpConnBtn->setFixedWidth(86);
     m_udpConnBtn->setStyleSheet(
-        "QPushButton { background:#1E8050; color:white; border-radius:4px;"
+        "QPushButton { background:#059669; color:white; border-radius:4px;"
         "  padding:4px 10px; font-size:9pt; font-weight:bold; }"
-        "QPushButton:pressed { background:#0E5030; }"
-        "QPushButton:disabled { background:#1A2A3A; color:#4A6A8A; }");
+        "QPushButton:pressed { background:#047857; }"
+        "QPushButton:disabled { background:#E5E7EB; color:#9CA3AF; }");
     connect(m_udpConnBtn, &QPushButton::clicked, this, &MainWindow::onUdpConnectClicked);
     connRow->addWidget(m_udpConnBtn);
 
     m_udpStatusLbl = new QLabel("就绪", this);
-    m_udpStatusLbl->setStyleSheet("color: #7FA8CC; font-size: 8pt;");
+    m_udpStatusLbl->setStyleSheet("color: #6B7280; font-size: 8pt;");
     m_udpStatusLbl->setMinimumWidth(120);
     connRow->addWidget(m_udpStatusLbl);
 
@@ -191,17 +191,17 @@ void MainWindow::setupUi()
     auto* splitter = new QSplitter(Qt::Horizontal, this);
     splitter->setHandleWidth(6);
     splitter->setStyleSheet(
-        "QSplitter::handle { background: #0B5EA8; }"
-        "QSplitter::handle:hover { background: #0099CC; }");
+        "QSplitter::handle { background: #E5E7EB; }"
+        "QSplitter::handle:hover { background: #D1D5DB; }");
 
     // ── 左侧：本地电机控制（卷筒 + RSD）──────────────────────────
     auto* leftWidget = new QWidget(splitter);
     leftWidget->setMinimumWidth(260);
     auto* leftHeader = new QLabel("本地驱动控制  (Modbus TCP)", leftWidget);
     leftHeader->setStyleSheet(
-        "color: #00B4D8; font-size: 12pt; font-weight: bold;"
-        "padding: 4px 8px; background: #031422;"
-        "border-bottom: 1px solid #0B5EA8;");
+        "color: #2563EB; font-size: 12pt; font-weight: bold;"
+        "padding: 4px 8px; background: #F9FAFB;"
+        "border-bottom: 1px solid #E5E7EB;");
     auto* leftVBox = new QVBoxLayout(leftWidget);
     leftVBox->setContentsMargins(0, 0, 0, 0);
     leftVBox->setSpacing(0);
@@ -214,9 +214,9 @@ void MainWindow::setupUi()
     centerWidget->setMinimumWidth(620);
     auto* centerHeader = new QLabel("六自由度动平台控制  (UDP)", centerWidget);
     centerHeader->setStyleSheet(
-        "color: #00B4D8; font-size: 12pt; font-weight: bold;"
-        "padding: 4px 8px; background: #031422;"
-        "border-bottom: 1px solid #0B5EA8;");
+        "color: #2563EB; font-size: 12pt; font-weight: bold;"
+        "padding: 4px 8px; background: #F9FAFB;"
+        "border-bottom: 1px solid #E5E7EB;");
     auto* centerVBox = new QVBoxLayout(centerWidget);
     centerVBox->setContentsMargins(0, 0, 0, 0);
     centerVBox->setSpacing(0);
@@ -229,9 +229,9 @@ void MainWindow::setupUi()
     rightWidget->setMinimumWidth(220);
     auto* rightHeader = new QLabel("拉线传感器实时数据", rightWidget);
     rightHeader->setStyleSheet(
-        "color: #00B4D8; font-size: 12pt; font-weight: bold;"
-        "padding: 4px 8px; background: #031422;"
-        "border-bottom: 1px solid #0B5EA8;");
+        "color: #2563EB; font-size: 12pt; font-weight: bold;"
+        "padding: 4px 8px; background: #F9FAFB;"
+        "border-bottom: 1px solid #E5E7EB;");
     auto* rightVBox = new QVBoxLayout(rightWidget);
     rightVBox->setContentsMargins(0, 0, 0, 0);
     rightVBox->setSpacing(0);
@@ -266,7 +266,7 @@ void MainWindow::onPlcConnectClicked()
         m_plcPortSpin->setEnabled(true);
         m_unitIdSpin->setEnabled(true);
         m_plcStatusLbl->setText("已断开");
-        m_plcStatusLbl->setStyleSheet("color: #7FA8CC; font-size: 8pt;");
+        m_plcStatusLbl->setStyleSheet("color: #6B7280; font-size: 8pt;");
         m_motorPanel->onConnectionChanged(false);
         m_sensorPanel->onConnectionChanged(false);
         m_plcConnected = false;
@@ -281,7 +281,7 @@ void MainWindow::onPlcConnectClicked()
         }
         m_plcConnBtn->setEnabled(false);
         m_plcStatusLbl->setText(QString("正在连接 %1:%2 …").arg(cfg.ip).arg(cfg.port));
-        m_plcStatusLbl->setStyleSheet("color: #FFA040; font-size: 8pt;");
+        m_plcStatusLbl->setStyleSheet("color: #D97706; font-size: 8pt;");
         initPlcWorker(cfg);
     }
 }
@@ -346,10 +346,10 @@ void MainWindow::onPlcConnectionChanged(bool connected)
     if (connected) {
         m_plcStatusLbl->setText(
             QString("已连接  %1:%2").arg(m_plcIpEdit->text()).arg(m_plcPortSpin->value()));
-        m_plcStatusLbl->setStyleSheet("color: #06D6A0; font-size: 8pt; font-weight: bold;");
+        m_plcStatusLbl->setStyleSheet("color: #059669; font-size: 8pt; font-weight: bold;");
     } else {
         m_plcStatusLbl->setText("连接断开，重连中…");
-        m_plcStatusLbl->setStyleSheet("color: #FFA040; font-size: 8pt;");
+        m_plcStatusLbl->setStyleSheet("color: #D97706; font-size: 8pt;");
     }
 }
 
@@ -364,7 +364,7 @@ void MainWindow::onUdpConnectClicked()
         m_udpIpEdit->setEnabled(true);
         m_udpCmdPort->setEnabled(true);
         m_udpStatusLbl->setText("已断开");
-        m_udpStatusLbl->setStyleSheet("color: #7FA8CC; font-size: 8pt;");
+        m_udpStatusLbl->setStyleSheet("color: #6B7280; font-size: 8pt;");
         m_platformPanel->onConnectionChanged(false);
         m_udpOnline = false;
     } else {
@@ -377,7 +377,7 @@ void MainWindow::onUdpConnectClicked()
         }
         m_udpConnBtn->setEnabled(false);
         m_udpStatusLbl->setText(QString("正在连接 %1:%2 …").arg(cfg.ip).arg(cfg.cmdPort));
-        m_udpStatusLbl->setStyleSheet("color: #FFA040; font-size: 8pt;");
+        m_udpStatusLbl->setStyleSheet("color: #D97706; font-size: 8pt;");
         initPlatformWorker(cfg);
     }
 }
@@ -441,10 +441,10 @@ void MainWindow::onUdpConnectionChanged(bool online)
     if (online) {
         m_udpStatusLbl->setText(
             QString("在线  %1:%2").arg(m_udpIpEdit->text()).arg(m_udpCmdPort->value()));
-        m_udpStatusLbl->setStyleSheet("color: #06D6A0; font-size: 8pt; font-weight: bold;");
+        m_udpStatusLbl->setStyleSheet("color: #059669; font-size: 8pt; font-weight: bold;");
     } else {
         m_udpStatusLbl->setText("无推送数据…");
-        m_udpStatusLbl->setStyleSheet("color: #FFA040; font-size: 8pt;");
+        m_udpStatusLbl->setStyleSheet("color: #D97706; font-size: 8pt;");
     }
 }
 

@@ -5,14 +5,14 @@
 #include <QFrame>
 #include <QMessageBox>
 
-// 海洋蓝配色
+// 简约白色主题
 static const char* kGroupStyle =
     "QGroupBox {"
-    "  border: 1px solid #0B5EA8;"
+    "  border: 1px solid #E5E7EB;"
     "  border-radius: 6px;"
     "  margin-top: 1.4em;"
-    "  background-color: #041830;"
-    "  color: #5B9AC4;"
+    "  background-color: #F9FAFB;"
+    "  color: #374151;"
     "  font-weight: bold;"
     "  font-size: 11pt;"
     "}"
@@ -22,18 +22,18 @@ static const char* kGroupStyle =
     "}";
 
 static const char* kLabelStyle =
-    "color: #5B9AC4; font-size: 9pt;";
+    "color: #6B7280; font-size: 9pt;";
 static const char* kValueStyle =
-    "color: #A8D8F0; font-family: Consolas, monospace;"
+    "color: #111827; font-family: Consolas, monospace;"
     "font-size: 11pt; font-weight: bold;";
 static const char* kStatePillNormal =
-    "background: #052040; color: #5B9AC4;"
+    "background: #F3F4F6; color: #6B7280;"
     "border-radius: 3px; padding: 2px 8px; font-size: 9pt;";
 static const char* kStatePillEnabled =
-    "background: #007A52; color: #FFFFFF;"
+    "background: #D1FAE5; color: #065F46;"
     "border-radius: 3px; padding: 2px 8px; font-size: 9pt; font-weight: bold;";
 static const char* kStatePillFault =
-    "background: #CC2222; color: #FFFFFF;"
+    "background: #FEE2E2; color: #991B1B;"
     "border-radius: 3px; padding: 2px 8px; font-size: 9pt; font-weight: bold;";
 
 static const char* kAxisNames[MotorPanel::LOCAL_AXIS_COUNT] = {
@@ -57,7 +57,7 @@ void MotorPanel::setupUi()
 
     // 连接状态标签
     m_connLabel = new QLabel("● 未连接", this);
-    m_connLabel->setStyleSheet("color: #7FA8CC; font-weight: bold;");
+    m_connLabel->setStyleSheet("color: #9CA3AF; font-weight: bold;");
     mainLayout->addWidget(m_connLabel);
 
     // 构建两个轴的控制面板
@@ -69,22 +69,22 @@ void MotorPanel::setupUi()
     // 分隔线
     auto* sep = new QFrame;
     sep->setFrameShape(QFrame::HLine);
-    sep->setStyleSheet("color: #0B5EA8;");
+    sep->setStyleSheet("color: #E5E7EB;");
     mainLayout->addWidget(sep);
 
     // 急停按钮
     m_eStopBtn = new QPushButton("⚠  全局急停", this);
     m_eStopBtn->setStyleSheet(
         "QPushButton {"
-        "  background-color: #AA0000; color: #FFFFFF;"
+        "  background-color: #DC2626; color: #FFFFFF;"
         "  font-size: 13pt; font-weight: bold;"
         "  border-radius: 6px; min-height: 46px;"
-        "  border: 2px solid #770000;"
+        "  border: 2px solid #B91C1C;"
         "}"
-        "QPushButton:pressed { background-color: #770000; }"
+        "QPushButton:pressed { background-color: #B91C1C; }"
         "QPushButton:disabled {"
-        "  background-color: #2A3A4A; color: #2A5A7A;"
-        "  border-color: #041830;"
+        "  background-color: #F3F4F6; color: #9CA3AF;"
+        "  border-color: #E5E7EB;"
         "}");
     connect(m_eStopBtn, &QPushButton::clicked, this, [this] {
         if (QMessageBox::question(this, "急停确认",
@@ -151,26 +151,26 @@ void MotorPanel::buildAxisWidget(int index, int physicalId, const QString& name)
     // 分隔线
     auto* sep = new QFrame;
     sep->setFrameShape(QFrame::HLine);
-    sep->setStyleSheet("color: #1E3A6B;");
+    sep->setStyleSheet("color: #E5E7EB;");
     vbox->addWidget(sep);
 
     // 使能控制行
     auto* ctrlRow = new QHBoxLayout;
     w.enableBtn = new QPushButton("使能", this);
     w.enableBtn->setStyleSheet(
-        "QPushButton { background:#007A52; color:white; border-radius:4px; padding:4px 14px; font-size:9pt; }"
-        "QPushButton:pressed { background:#104D2A; }"
-        "QPushButton:disabled { background:#041830; color:#2A5A7A; }");
+        "QPushButton { background:#059669; color:white; border-radius:4px; padding:4px 14px; font-size:9pt; }"
+        "QPushButton:pressed { background:#047857; }"
+        "QPushButton:disabled { background:#F3F4F6; color:#9CA3AF; }");
     w.disableBtn = new QPushButton("去使能", this);
     w.disableBtn->setStyleSheet(
-        "QPushButton { background:#7A2800; color:white; border-radius:4px; padding:4px 14px; font-size:9pt; }"
-        "QPushButton:pressed { background:#5A1E08; }"
-        "QPushButton:disabled { background:#041830; color:#2A5A7A; }");
+        "QPushButton { background:#EF4444; color:white; border-radius:4px; padding:4px 14px; font-size:9pt; }"
+        "QPushButton:pressed { background:#DC2626; }"
+        "QPushButton:disabled { background:#F3F4F6; color:#9CA3AF; }");
     w.faultResetBtn = new QPushButton("清故障", this);
     w.faultResetBtn->setStyleSheet(
-        "QPushButton { background:#4A4090; color:white; border-radius:4px; padding:4px 14px; font-size:9pt; }"
-        "QPushButton:pressed { background:#2A2060; }"
-        "QPushButton:disabled { background:#041830; color:#2A5A7A; }");
+        "QPushButton { background:#7C3AED; color:white; border-radius:4px; padding:4px 14px; font-size:9pt; }"
+        "QPushButton:pressed { background:#6D28D9; }"
+        "QPushButton:disabled { background:#F3F4F6; color:#9CA3AF; }");
     ctrlRow->addWidget(w.enableBtn);
     ctrlRow->addWidget(w.disableBtn);
     ctrlRow->addWidget(w.faultResetBtn);
@@ -188,14 +188,14 @@ void MotorPanel::buildAxisWidget(int index, int physicalId, const QString& name)
     w.velInput->setDecimals(1);
     w.velInput->setFixedWidth(120);
     w.velInput->setStyleSheet(
-        "QDoubleSpinBox { background:#020D1A; color:#D5E8FA; border:1px solid #0B5EA8;"
+        "QDoubleSpinBox { background:#FFFFFF; color:#374151; border:1px solid #D1D5DB;"
         " border-radius:3px; padding:2px 4px; font-family:Consolas; }");
     w.velApplyBtn = new QPushButton("发送", this);
     w.velApplyBtn->setFixedWidth(56);
     w.velApplyBtn->setStyleSheet(
-        "QPushButton { background:#0077B6; color:white; border-radius:4px; padding:3px 8px; font-size:9pt; }"
-        "QPushButton:pressed { background:#0E4F80; }"
-        "QPushButton:disabled { background:#041830; color:#2A5A7A; }");
+        "QPushButton { background:#2563EB; color:white; border-radius:4px; padding:3px 8px; font-size:9pt; }"
+        "QPushButton:pressed { background:#1D4ED8; }"
+        "QPushButton:disabled { background:#F3F4F6; color:#9CA3AF; }");
     velRow->addWidget(velCap);
     velRow->addWidget(w.velInput);
     velRow->addWidget(w.velApplyBtn);
@@ -211,7 +211,7 @@ void MotorPanel::buildAxisWidget(int index, int physicalId, const QString& name)
     w.posInput->setSuffix(" pulse");
     w.posInput->setFixedWidth(140);
     w.posInput->setStyleSheet(
-        "QSpinBox { background:#020D1A; color:#D5E8FA; border:1px solid #0B5EA8;"
+        "QSpinBox { background:#FFFFFF; color:#374151; border:1px solid #D1D5DB;"
         " border-radius:3px; padding:2px 4px; font-family:Consolas; }");
     w.approachVelInput = new QDoubleSpinBox(this);
     w.approachVelInput->setRange(1.0, 3000.0);
@@ -220,14 +220,14 @@ void MotorPanel::buildAxisWidget(int index, int physicalId, const QString& name)
     w.approachVelInput->setDecimals(1);
     w.approachVelInput->setFixedWidth(100);
     w.approachVelInput->setStyleSheet(
-        "QDoubleSpinBox { background:#020D1A; color:#D5E8FA; border:1px solid #0B5EA8;"
+        "QDoubleSpinBox { background:#FFFFFF; color:#374151; border:1px solid #D1D5DB;"
         " border-radius:3px; padding:2px 4px; font-family:Consolas; }");
     w.posApplyBtn = new QPushButton("定位", this);
     w.posApplyBtn->setFixedWidth(56);
     w.posApplyBtn->setStyleSheet(
-        "QPushButton { background:#0077B6; color:white; border-radius:4px; padding:3px 8px; font-size:9pt; }"
-        "QPushButton:pressed { background:#0E4F80; }"
-        "QPushButton:disabled { background:#041830; color:#2A5A7A; }");
+        "QPushButton { background:#2563EB; color:white; border-radius:4px; padding:3px 8px; font-size:9pt; }"
+        "QPushButton:pressed { background:#1D4ED8; }"
+        "QPushButton:disabled { background:#F3F4F6; color:#9CA3AF; }");
     posRow->addWidget(posCap);
     posRow->addWidget(w.posInput);
     posRow->addWidget(new QLabel("@", this));
@@ -282,10 +282,10 @@ void MotorPanel::onMotorDataUpdated(int axisId, const MotorData& data)
                 QString("0x%1  %2").arg(data.errorCode, 4, 16, QChar('0'))
                                    .arg(faultCodeToString(data.errorCode)));
             w.errorLabel->setStyleSheet(
-                "color:#FF5555; font-family:Consolas; font-size:9pt; font-weight:bold;");
+                "color:#DC2626; font-family:Consolas; font-size:9pt; font-weight:bold;");
         } else {
             w.errorLabel->setText("正常");
-            w.errorLabel->setStyleSheet("color:#06D6A0; font-family:Consolas; font-size:9pt;");
+            w.errorLabel->setStyleSheet("color:#059669; font-family:Consolas; font-size:9pt;");
         }
 
         w.stateLabel->setText(data.stateName);
@@ -310,10 +310,10 @@ void MotorPanel::onConnectionChanged(bool connected)
 {
     if (connected) {
         m_connLabel->setText("● 已连接");
-        m_connLabel->setStyleSheet("color: #06D6A0; font-weight: bold;");
+        m_connLabel->setStyleSheet("color: #059669; font-weight: bold;");
     } else {
         m_connLabel->setText("● 未连接");
-        m_connLabel->setStyleSheet("color: #5B9AC4; font-weight: bold;");
+        m_connLabel->setStyleSheet("color: #9CA3AF; font-weight: bold;");
         for (auto& w : m_axisWidgets) {
             w.stateLabel->setText("-- 未知 --");
             w.stateLabel->setStyleSheet(kStatePillNormal);
