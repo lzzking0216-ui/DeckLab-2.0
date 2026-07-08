@@ -4,16 +4,15 @@
 #include <QPushButton>
 #include <QDoubleSpinBox>
 #include <QComboBox>
-#include <QGroupBox>
+#include <QButtonGroup>
+#include <QStackedWidget>
+#include <QToolButton>
 #include <array>
 #include "PlatformData.h"
 
-// -----------------------------------------------------------------------
-// PlatformPanel — 国辰正域 Stewart 六自由度动平台控制面板（UDP）
-//
-// 功能：设备连接状态显示、上下电、故障复位、运动模式选择、
-//       姿态目标输入、当前位姿实时显示、支链长度显示
-// -----------------------------------------------------------------------
+class QHBoxLayout;
+class QRadioButton;
+
 class PlatformPanel : public QWidget {
     Q_OBJECT
 public:
@@ -33,45 +32,65 @@ signals:
     void stopMotionRequested();
 
 private:
-    struct PoseDisplay {
-        QLabel* label = nullptr;
+    struct ValueRow {
+        QLabel* caption = nullptr;
         QLabel* value = nullptr;
-        QLabel* unit  = nullptr;
+        QLabel* unit = nullptr;
     };
 
-    struct PoseInput {
-        QLabel*         label = nullptr;
-        QDoubleSpinBox* spin  = nullptr;
-        QLabel*         unit  = nullptr;
+    struct TargetRow {
+        QLabel* caption = nullptr;
+        QDoubleSpinBox* spin = nullptr;
+        QLabel* unit = nullptr;
     };
 
     void setupUi();
-    void buildStatusSection(QWidget* parent, class QVBoxLayout* vbox);
-    void buildCurrentPoseSection(QWidget* parent, QVBoxLayout* vbox);
-    void buildControlSection(QWidget* parent, QVBoxLayout* vbox);
-    void buildTargetPoseSection(QWidget* parent, QVBoxLayout* vbox);
-    void buildChainSection(QWidget* parent, QVBoxLayout* vbox);
+    QWidget* buildSystemPane(QWidget* parent);
+    QWidget* buildMotionPane(QWidget* parent);
+    QWidget* buildHeader(const QString& title, QWidget* parent);
+    QWidget* buildFixedPointPage(QWidget* parent);
+    QWidget* buildIncrementPage(QWidget* parent);
+    QWidget* buildSinePage(QWidget* parent);
+    QWidget* buildTrajectoryPage(QWidget* parent);
+    void addModeButton(const QString& text, int pageIndex, QHBoxLayout* row);
+    void selectMotionPage(int pageIndex);
+    void updateButtonStates();
+    void updateTargetRanges();
+    void updatePoseReadouts();
+    void sendFixedTarget();
+    void sendIncrementStep(int axis, double direction);
+    static QString modeName(int mode);
 
-    QLabel*      m_connIndicator  = nullptr;
-    QLabel*      m_powerState     = nullptr;
-    QLabel*      m_modeDisplay    = nullptr;
-    QLabel*      m_faultIndicator = nullptr;
-    QPushButton* m_powerOnBtn     = nullptr;
-    QPushButton* m_powerOffBtn    = nullptr;
-    QPushButton* m_faultResetBtn  = nullptr;
+    QLabel* m_connIndicator = nullptr;
+    QLabel* m_powerState = nullptr;
+    QLabel* m_modeDisplay = nullptr;
+    QLabel* m_faultIndicator = nullptr;
+    QPushButton* m_powerOnBtn = nullptr;
+    QPushButton* m_powerOffBtn = nullptr;
+    QPushButton* m_faultResetBtn = nullptr;
 
-    QComboBox*   m_modeCombo  = nullptr;
-    QPushButton* m_modeApply  = nullptr;
-    QPushButton* m_stopBtn    = nullptr;
+    std::array<ValueRow, 6> m_poseRows;
+    std::array<TargetRow, 6> m_targetRows;
+    std::array<QLabel*, 6> m_incrementValueLabels = {};
+    std::array<QPushButton*, 6> m_incrementMinusBtns = {};
+    std::array<QPushButton*, 6> m_incrementPlusBtns = {};
 
-    std::array<PoseDisplay, 6> m_poseDisplay;
-    std::array<PoseInput, 6>   m_poseInput;
-    QPushButton* m_sendTargetBtn = nullptr;
-
-    std::array<QLabel*, 6> m_chainLabels = {};
+    QComboBox* m_coordCombo = nullptr;
+    QStackedWidget* m_motionStack = nullptr;
+    QButtonGroup* m_modeButtons = nullptr;
+    QPushButton* m_fixedExecuteBtn = nullptr;
+    QPushButton* m_fixedResetBtn = nullptr;
+    QDoubleSpinBox* m_translateStepSpin = nullptr;
+    QDoubleSpinBox* m_rotateStepSpin = nullptr;
+    QRadioButton* m_incrementSingleRadio = nullptr;
+    QRadioButton* m_incrementContinuousRadio = nullptr;
+    QPushButton* m_incrementStopBtn = nullptr;
+    QPushButton* m_incrementResetBtn = nullptr;
+    QPushButton* m_sineExecuteBtn = nullptr;
+    QPushButton* m_sineResetBtn = nullptr;
+    QPushButton* m_trajectoryStartBtn = nullptr;
+    QPushButton* m_trajectoryStopBtn = nullptr;
 
     bool m_online = false;
-
-    void updateButtonStates();
-    static QString modeName(int mode);
+    PlatformPose m_currentPose;
 };

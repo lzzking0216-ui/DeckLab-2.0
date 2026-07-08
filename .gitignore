@@ -1,0 +1,52 @@
+﻿# Build directories
+build/
+cmake-build-*/
+out/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake.user
+
+# Qt generated files
+*_autogen/
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+.qtc_clangd/
+.qtcreator/
+*.pro.user
+*.pro.user.*
+
+# MSVC / Windows build artifacts
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.exp
+*.res
+*.idb
+*.ipdb
+*.iobj
+*.suo
+*.user
+*.vcxproj.user
+*.exe
+*.dll
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.err
+Testing/Temporary/
+
+# Editor / OS noise
+.vscode/.browse.VC.db*
+.vscode/ipch/
+.DS_Store
+Thumbs.db

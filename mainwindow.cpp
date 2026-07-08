@@ -92,43 +92,61 @@ void MainWindow::setupUi()
     rootVBox->setContentsMargins(8, 8, 8, 8);
     rootVBox->setSpacing(6);
 
-    // ====================================================================
-    // 顶栏：两段连接配置（PLC Modbus  |  Stewart UDP）
-    // ====================================================================
-    auto* connGroup = new QGroupBox(this);
-    connGroup->setStyleSheet(kConnGroupStyle);
-    connGroup->setFixedHeight(52);
+    auto makeCabinetHeader = [this](const QString& title, const QString& color) {
+        auto* header = new QLabel(title, this);
+        header->setStyleSheet(QString(
+            "color: %1; font-size: 13pt; font-weight: bold;"
+            "padding: 8px 10px; background: #F9FAFB;"
+            "border: 1px solid #E5E7EB; border-radius: 6px;").arg(color));
+        return header;
+    };
 
-    auto* connRow = new QHBoxLayout(connGroup);
-    connRow->setContentsMargins(10, 4, 10, 4);
-    connRow->setSpacing(8);
+    auto* splitter = new QSplitter(Qt::Horizontal, this);
+    splitter->setHandleWidth(6);
+    splitter->setStyleSheet(
+        "QSplitter::handle { background: #E5E7EB; }"
+        "QSplitter::handle:hover { background: #D1D5DB; }");
 
-    // —— Modbus TCP 段 ——
-    auto* plcTag = new QLabel("汇川 AC702  Modbus TCP:", this);
+    // 快速回收单元（PLC / Modbus TCP）
+    auto* cabinetB = new QWidget(splitter);
+    cabinetB->setMinimumWidth(460);
+    auto* cabinetBVBox = new QVBoxLayout(cabinetB);
+    cabinetBVBox->setContentsMargins(0, 0, 0, 0);
+    cabinetBVBox->setSpacing(6);
+    cabinetBVBox->addWidget(makeCabinetHeader(QString::fromUtf8("快速回收单元"), "#2563EB"));
+
+    auto* plcGroup = new QGroupBox(cabinetB);
+    plcGroup->setStyleSheet(kConnGroupStyle);
+    plcGroup->setFixedHeight(56);
+    auto* plcRow = new QHBoxLayout(plcGroup);
+    plcRow->setContentsMargins(10, 4, 10, 4);
+    plcRow->setSpacing(8);
+
+    auto* plcTag = new QLabel(QString::fromUtf8("PLC / Modbus TCP:"), plcGroup);
     plcTag->setStyleSheet("color:#2563EB; font-size:8pt; font-weight:bold;");
-    connRow->addWidget(plcTag);
+    plcRow->addWidget(plcTag);
 
-    connRow->addWidget(new QLabel("IP:", this));
-    m_plcIpEdit = new QLineEdit("192.168.1.1", this);
+    plcRow->addWidget(new QLabel("IP:", plcGroup));
+    m_plcIpEdit = new QLineEdit("192.168.1.1", plcGroup);
     m_plcIpEdit->setMaximumWidth(130);
     m_plcIpEdit->setPlaceholderText("192.168.1.1");
-    connRow->addWidget(m_plcIpEdit);
+    plcRow->addWidget(m_plcIpEdit);
 
-    connRow->addWidget(new QLabel("端口:", this));
-    m_plcPortSpin = new QSpinBox(this);
+    plcRow->addWidget(new QLabel(QString::fromUtf8("端口:"), plcGroup));
+    m_plcPortSpin = new QSpinBox(plcGroup);
     m_plcPortSpin->setRange(1, 65535);
     m_plcPortSpin->setValue(502);
     m_plcPortSpin->setFixedWidth(68);
-    connRow->addWidget(m_plcPortSpin);
+    plcRow->addWidget(m_plcPortSpin);
 
-    connRow->addWidget(new QLabel("从站:", this));
-    m_unitIdSpin = new QSpinBox(this);
+    plcRow->addWidget(new QLabel(QString::fromUtf8("从站:"), plcGroup));
+    m_unitIdSpin = new QSpinBox(plcGroup);
     m_unitIdSpin->setRange(1, 247);
     m_unitIdSpin->setValue(1);
     m_unitIdSpin->setFixedWidth(52);
-    connRow->addWidget(m_unitIdSpin);
+    plcRow->addWidget(m_unitIdSpin);
 
-    m_plcConnBtn = new QPushButton("连接 PLC", this);
+    m_plcConnBtn = new QPushButton(QString::fromUtf8("连接 PLC"), plcGroup);
     m_plcConnBtn->setFixedWidth(86);
     m_plcConnBtn->setStyleSheet(
         "QPushButton { background:#2563EB; color:white; border-radius:4px;"
@@ -136,38 +154,61 @@ void MainWindow::setupUi()
         "QPushButton:pressed { background:#1D4ED8; }"
         "QPushButton:disabled { background:#E5E7EB; color:#9CA3AF; }");
     connect(m_plcConnBtn, &QPushButton::clicked, this, &MainWindow::onPlcConnectClicked);
-    connRow->addWidget(m_plcConnBtn);
+    plcRow->addWidget(m_plcConnBtn);
 
-    m_plcStatusLbl = new QLabel("就绪", this);
+    m_plcStatusLbl = new QLabel(QString::fromUtf8("就绪"), plcGroup);
     m_plcStatusLbl->setStyleSheet("color: #6B7280; font-size: 8pt;");
-    m_plcStatusLbl->setMinimumWidth(140);
-    connRow->addWidget(m_plcStatusLbl);
+    m_plcStatusLbl->setMinimumWidth(120);
+    plcRow->addWidget(m_plcStatusLbl);
+    plcRow->addStretch();
+    cabinetBVBox->addWidget(plcGroup);
 
-    // 分隔竖线
-    auto* sep = new QFrame(this);
-    sep->setFrameShape(QFrame::VLine);
-    sep->setStyleSheet("color:#E5E7EB;");
-    connRow->addWidget(sep);
+    auto* cabinetBStack = new QSplitter(Qt::Vertical, cabinetB);
+    cabinetBStack->setHandleWidth(6);
+    cabinetBStack->setStyleSheet(
+        "QSplitter::handle { background: #E5E7EB; }"
+        "QSplitter::handle:hover { background: #D1D5DB; }");
+    m_motorPanel = new MotorPanel(cabinetBStack);
+    m_sensorPanel = new SensorPanel(cabinetBStack);
+    cabinetBStack->addWidget(m_motorPanel);
+    cabinetBStack->addWidget(m_sensorPanel);
+    cabinetBStack->setStretchFactor(0, 3);
+    cabinetBStack->setStretchFactor(1, 2);
+    cabinetBVBox->addWidget(cabinetBStack, 1);
 
-    // —— UDP 段 ——
-    auto* udpTag = new QLabel("国辰正域  Stewart  UDP:", this);
+    // 六自由度平台（UDP）
+    auto* cabinetA = new QWidget(splitter);
+    cabinetA->setMinimumWidth(620);
+    auto* cabinetAVBox = new QVBoxLayout(cabinetA);
+    cabinetAVBox->setContentsMargins(0, 0, 0, 0);
+    cabinetAVBox->setSpacing(6);
+    cabinetAVBox->addWidget(makeCabinetHeader(QString::fromUtf8("六自由度平台"), "#059669"));
+
+    auto* udpGroup = new QGroupBox(cabinetA);
+    udpGroup->setStyleSheet(kConnGroupStyle);
+    udpGroup->setFixedHeight(56);
+    auto* udpRow = new QHBoxLayout(udpGroup);
+    udpRow->setContentsMargins(10, 4, 10, 4);
+    udpRow->setSpacing(8);
+
+    auto* udpTag = new QLabel(QString::fromUtf8("Stewart / UDP:"), udpGroup);
     udpTag->setStyleSheet("color:#059669; font-size:8pt; font-weight:bold;");
-    connRow->addWidget(udpTag);
+    udpRow->addWidget(udpTag);
 
-    connRow->addWidget(new QLabel("IP:", this));
-    m_udpIpEdit = new QLineEdit("192.168.1.88", this);
+    udpRow->addWidget(new QLabel("IP:", udpGroup));
+    m_udpIpEdit = new QLineEdit("192.168.1.88", udpGroup);
     m_udpIpEdit->setMaximumWidth(130);
     m_udpIpEdit->setPlaceholderText("192.168.1.88");
-    connRow->addWidget(m_udpIpEdit);
+    udpRow->addWidget(m_udpIpEdit);
 
-    connRow->addWidget(new QLabel("命令端口:", this));
-    m_udpCmdPort = new QSpinBox(this);
+    udpRow->addWidget(new QLabel(QString::fromUtf8("命令端口:"), udpGroup));
+    m_udpCmdPort = new QSpinBox(udpGroup);
     m_udpCmdPort->setRange(1, 65535);
     m_udpCmdPort->setValue(2000);
     m_udpCmdPort->setFixedWidth(68);
-    connRow->addWidget(m_udpCmdPort);
+    udpRow->addWidget(m_udpCmdPort);
 
-    m_udpConnBtn = new QPushButton("连接平台", this);
+    m_udpConnBtn = new QPushButton(QString::fromUtf8("连接平台"), udpGroup);
     m_udpConnBtn->setFixedWidth(86);
     m_udpConnBtn->setStyleSheet(
         "QPushButton { background:#059669; color:white; border-radius:4px;"
@@ -175,80 +216,25 @@ void MainWindow::setupUi()
         "QPushButton:pressed { background:#047857; }"
         "QPushButton:disabled { background:#E5E7EB; color:#9CA3AF; }");
     connect(m_udpConnBtn, &QPushButton::clicked, this, &MainWindow::onUdpConnectClicked);
-    connRow->addWidget(m_udpConnBtn);
+    udpRow->addWidget(m_udpConnBtn);
 
-    m_udpStatusLbl = new QLabel("就绪", this);
+    m_udpStatusLbl = new QLabel(QString::fromUtf8("就绪"), udpGroup);
     m_udpStatusLbl->setStyleSheet("color: #6B7280; font-size: 8pt;");
     m_udpStatusLbl->setMinimumWidth(120);
-    connRow->addWidget(m_udpStatusLbl);
+    udpRow->addWidget(m_udpStatusLbl);
+    udpRow->addStretch();
+    cabinetAVBox->addWidget(udpGroup);
 
-    connRow->addStretch();
-    rootVBox->addWidget(connGroup);
+    m_platformPanel = new PlatformPanel(cabinetA);
+    cabinetAVBox->addWidget(m_platformPanel, 1);
 
-    // ====================================================================
-    // 主区：三列布局（左 | 中 | 右）
-    // ====================================================================
-    auto* splitter = new QSplitter(Qt::Horizontal, this);
-    splitter->setHandleWidth(6);
-    splitter->setStyleSheet(
-        "QSplitter::handle { background: #E5E7EB; }"
-        "QSplitter::handle:hover { background: #D1D5DB; }");
-
-    // ── 左侧：本地电机控制（卷筒 + RSD）──────────────────────────
-    auto* leftWidget = new QWidget(splitter);
-    leftWidget->setMinimumWidth(260);
-    auto* leftHeader = new QLabel("本地驱动控制  (Modbus TCP)", leftWidget);
-    leftHeader->setStyleSheet(
-        "color: #2563EB; font-size: 12pt; font-weight: bold;"
-        "padding: 4px 8px; background: #F9FAFB;"
-        "border-bottom: 1px solid #E5E7EB;");
-    auto* leftVBox = new QVBoxLayout(leftWidget);
-    leftVBox->setContentsMargins(0, 0, 0, 0);
-    leftVBox->setSpacing(0);
-    leftVBox->addWidget(leftHeader);
-    m_motorPanel = new MotorPanel(leftWidget);
-    leftVBox->addWidget(m_motorPanel, 1);
-
-    // ── 中央：动平台 Stewart 控制（UDP）────────────────────────────
-    auto* centerWidget = new QWidget(splitter);
-    centerWidget->setMinimumWidth(620);
-    auto* centerHeader = new QLabel("六自由度动平台控制  (UDP)", centerWidget);
-    centerHeader->setStyleSheet(
-        "color: #2563EB; font-size: 12pt; font-weight: bold;"
-        "padding: 4px 8px; background: #F9FAFB;"
-        "border-bottom: 1px solid #E5E7EB;");
-    auto* centerVBox = new QVBoxLayout(centerWidget);
-    centerVBox->setContentsMargins(0, 0, 0, 0);
-    centerVBox->setSpacing(0);
-    centerVBox->addWidget(centerHeader);
-    m_platformPanel = new PlatformPanel(centerWidget);
-    centerVBox->addWidget(m_platformPanel, 1);
-
-    // ── 右侧：传感器数据 ────────────────────────────────────────
-    auto* rightWidget = new QWidget(splitter);
-    rightWidget->setMinimumWidth(220);
-    auto* rightHeader = new QLabel("拉线传感器实时数据", rightWidget);
-    rightHeader->setStyleSheet(
-        "color: #2563EB; font-size: 12pt; font-weight: bold;"
-        "padding: 4px 8px; background: #F9FAFB;"
-        "border-bottom: 1px solid #E5E7EB;");
-    auto* rightVBox = new QVBoxLayout(rightWidget);
-    rightVBox->setContentsMargins(0, 0, 0, 0);
-    rightVBox->setSpacing(0);
-    rightVBox->addWidget(rightHeader);
-    m_sensorPanel = new SensorPanel(rightWidget);
-    rightVBox->addWidget(m_sensorPanel, 1);
-
-    splitter->addWidget(leftWidget);
-    splitter->addWidget(centerWidget);
-    splitter->addWidget(rightWidget);
+    splitter->addWidget(cabinetB);
+    splitter->addWidget(cabinetA);
     splitter->setStretchFactor(0, 2);
-    splitter->setStretchFactor(1, 5);
-    splitter->setStretchFactor(2, 2);
+    splitter->setStretchFactor(1, 3);
 
     rootVBox->addWidget(splitter, 1);
 
-    // 初始状态
     m_motorPanel->onConnectionChanged(false);
     m_platformPanel->onConnectionChanged(false);
     m_sensorPanel->onConnectionChanged(false);

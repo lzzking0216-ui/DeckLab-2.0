@@ -60,12 +60,14 @@ void MotorPanel::setupUi()
     m_connLabel->setStyleSheet("color: #9CA3AF; font-weight: bold;");
     mainLayout->addWidget(m_connLabel);
 
-    // 构建两个轴的控制面板
+    // 构建两个轴的控制面板：卷筒电机与 RSD 丝杆左右并排
+    auto* axisRow = new QHBoxLayout;
+    axisRow->setSpacing(8);
     for (int i = 0; i < LOCAL_AXIS_COUNT; ++i) {
         buildAxisWidget(i, AXIS_IDS[i], QString::fromUtf8(kAxisNames[i]));
-        mainLayout->addWidget(m_axisWidgets[i].group);
+        axisRow->addWidget(m_axisWidgets[i].group, 1);
     }
-
+    mainLayout->addLayout(axisRow, 1);
     // 分隔线
     auto* sep = new QFrame;
     sep->setFrameShape(QFrame::HLine);
